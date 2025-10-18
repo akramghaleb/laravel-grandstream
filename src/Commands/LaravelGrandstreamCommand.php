@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace AkramGhaleb\LaravelGrandstream\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelGrandstreamCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-grandstream';
 
     public $description = 'My command';
 

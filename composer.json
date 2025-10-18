@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "akramghaleb/laravel-grandstream",
+    "description": "Laravel SDK for Grandstream Devices",
     "keywords": [
-        ":vendor_name",
+        "Akram Ghaleb",
         "laravel",
-        ":package_slug"
+        "laravel-grandstream"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/akramghaleb/laravel-grandstream",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Akram Ghaleb",
+            "email": "46090581+akramghaleb@users.noreply.github.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "AkramGhaleb\\LaravelGrandstream\\": "src/",
+            "AkramGhaleb\\LaravelGrandstream\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "AkramGhaleb\\LaravelGrandstream\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "AkramGhaleb\\LaravelGrandstream\\LaravelGrandstreamServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelGrandstream": "AkramGhaleb\\LaravelGrandstream\\Facades\\LaravelGrandstream"
             }
         }
     },
