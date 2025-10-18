@@ -42,14 +42,14 @@ class LaravelGrandstreamAuth
         $base = self::base();
         $user = self::user();
         $pass = self::pass();
-        $ver  = self::ver();
-        $ttl  = self::ttl();
+        $ver = self::ver();
+        $ttl = self::ttl();
 
         // challenge
         $challengeRes = Http::withoutVerifying()
-            ->withHeaders(['Content-Type'=>'application/json;charset=UTF-8'])
+            ->withHeaders(['Content-Type' => 'application/json;charset=UTF-8'])
             ->post("{$base}/api", [
-                'request'=>['action'=>'challenge','user'=>$user,'version'=>$ver]
+                'request' => ['action' => 'challenge', 'user' => $user, 'version' => $ver],
             ])->json();
 
         $challenge = data_get($challengeRes, 'response.challenge');
@@ -62,9 +62,9 @@ class LaravelGrandstreamAuth
 
         // login
         $loginRes = Http::withoutVerifying()
-            ->withHeaders(['Content-Type'=>'application/json;charset=UTF-8'])
+            ->withHeaders(['Content-Type' => 'application/json;charset=UTF-8'])
             ->post("{$base}/api", [
-                'request'=>['action'=>'login','token'=>$token,'user'=>$user,'url'=>url('/noop')]
+                'request' => ['action' => 'login', 'token' => $token, 'user' => $user, 'url' => url('/noop')],
             ])->json();
 
         $cookie = data_get($loginRes, 'response.cookie');
@@ -73,6 +73,7 @@ class LaravelGrandstreamAuth
         }
 
         Cache::put(self::key($uid), $cookie, now()->addMinutes($ttl));
+
         return $cookie;
     }
 
@@ -86,11 +87,11 @@ class LaravelGrandstreamAuth
         $uid = auth()->id();
         $cookie = self::cookieFor($uid) ?? self::loginFor($uid);
 
-        $body = ['request' => array_merge($payload, ['action'=>$action, 'cookie'=>$cookie])];
+        $body = ['request' => array_merge($payload, ['action' => $action, 'cookie' => $cookie])];
 
         $res = Http::withoutVerifying()
-            ->withHeaders(['Content-Type'=>'application/json;charset=UTF-8'])
-            ->post(self::base()."/api", $body)
+            ->withHeaders(['Content-Type' => 'application/json;charset=UTF-8'])
+            ->post(self::base().'/api', $body)
             ->json();
 
         $status = data_get($res, 'status');
@@ -99,11 +100,11 @@ class LaravelGrandstreamAuth
             $body['request']['cookie'] = $cookie;
 
             $res = Http::withoutVerifying()
-                ->withHeaders(['Content-Type'=>'application/json;charset=UTF-8'])
-                ->post(self::base()."/api", $body)
+                ->withHeaders(['Content-Type' => 'application/json;charset=UTF-8'])
+                ->post(self::base().'/api', $body)
                 ->json();
         }
 
-        return $res ?? ['status'=>-500,'response'=>['error'=>'No response']];
+        return $res ?? ['status' => -500, 'response' => ['error' => 'No response']];
     }
 }
