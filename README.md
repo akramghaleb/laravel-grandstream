@@ -25,15 +25,15 @@ Ideal for **real-time call monitoring**, **extension management**, or **PBX-base
 
 Install the package via Composer:
 
-$$$
+```
 composer require akramghaleb/laravel-grandstream
-$$$
+```
 
 Then publish the configuration file:
 
-$$$
+```
 php artisan vendor:publish --tag="laravel-grandstream-config"
-$$$
+```
 
 ---
 
@@ -42,7 +42,7 @@ $$$
 A `config/grandstream.php` file will be created.  
 Add your device credentials to `.env`:
 
-$$$
+```
 UCM_BASE=https://your-ucm-ip
 UCM_API_USER=apiuser
 UCM_API_PASS=apipassword
@@ -50,7 +50,7 @@ UCM_API_VER=1.2
 UCM_COOKIE_TTL=9
 UCM_VERIFY_SSL=false
 UCM_CACHE_PREFIX=ucm_cookie:
-$$$
+```
 
 ---
 
@@ -58,7 +58,7 @@ $$$
 
 Use the **Facade** for simple calls:
 
-$$$php
+```php
 use AkramGhaleb\LaravelGrandstream\Facades\Grandstream;
 
 // Example: List extensions
@@ -69,7 +69,7 @@ $cdr = Grandstream::api('listCDR', ['page' => 1, 'page_size' => 20]);
 
 // Example: Force new login and retrieve cookie
 $cookie = Grandstream::loginFor(auth()->id());
-$$$
+```
 
 The package automatically retries failed requests when cookies expire (`-6`, `-8`, `-37`).
 
@@ -77,7 +77,7 @@ The package automatically retries failed requests when cookies expire (`-6`, `-8
 
 ## 🧩 Example Response
 
-$$$json
+```json
 {
 "status": 0,
 "response": {
@@ -93,7 +93,7 @@ $$$json
 ]
 }
 }
-$$$
+```
 
 ---
 
@@ -101,7 +101,7 @@ $$$
 
 Inject it directly instead of using the Facade:
 
-$$$php
+```php
 use AkramGhaleb\LaravelGrandstream\Grandstream;
 
 class CallController
@@ -114,15 +114,15 @@ public function __construct(protected Grandstream $grandstream) {}
         return response()->json($calls);
     }
 }
-$$$
+```
 
 ---
 
 ## 🧪 Testing
 
-$$$
+```
 composer test
-$$$
+```
 
 ---
 
