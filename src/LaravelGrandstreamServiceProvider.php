@@ -2,9 +2,9 @@
 
 namespace AkramGhaleb\LaravelGrandstream;
 
+use AkramGhaleb\LaravelGrandstream\Commands\LaravelGrandstreamCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use AkramGhaleb\LaravelGrandstream\Commands\LaravelGrandstreamCommand;
 
 class LaravelGrandstreamServiceProvider extends PackageServiceProvider
 {
