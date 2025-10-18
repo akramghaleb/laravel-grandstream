@@ -5,80 +5,161 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/akramghaleb/laravel-grandstream/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/akramghaleb/laravel-grandstream/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/akramghaleb/laravel-grandstream.svg?style=flat-square)](https://packagist.org/packages/akramghaleb/laravel-grandstream)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+---
 
-## Support us
+## 📦 Overview
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-grandstream.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-grandstream)
+**Laravel Grandstream** is a clean SDK for integrating Laravel apps with **Grandstream UCM** PBX devices.  
+It simplifies REST API communication, including:
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+- Challenge → Token → Cookie authentication flow
+- Cached login cookies per user/session
+- Unified API request handling with auto-retry on cookie expiration
+- Easy integration into Filament dashboards or CRM systems
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+Ideal for **real-time call monitoring**, **extension management**, or **PBX-based CRM dashboards**.
 
-## Installation
+---
 
-You can install the package via composer:
+## ⚙️ Installation
 
-```bash
+Install the package via Composer:
+
+$$$
 composer require akramghaleb/laravel-grandstream
-```
+$$$
 
-You can publish and run the migrations with:
+Then publish the configuration file:
 
-```bash
-php artisan vendor:publish --tag="laravel-grandstream-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
+$$$
 php artisan vendor:publish --tag="laravel-grandstream-config"
-```
+$$$
 
-This is the contents of the published config file:
+---
 
-```php
-return [
-];
-```
+## 🔧 Configuration
 
-Optionally, you can publish the views using
+A `config/grandstream.php` file will be created.  
+Add your device credentials to `.env`:
 
-```bash
-php artisan vendor:publish --tag="laravel-grandstream-views"
-```
+$$$
+UCM_BASE=https://your-ucm-ip
+UCM_API_USER=apiuser
+UCM_API_PASS=apipassword
+UCM_API_VER=1.2
+UCM_COOKIE_TTL=9
+UCM_VERIFY_SSL=false
+UCM_CACHE_PREFIX=ucm_cookie:
+$$$
 
-## Usage
+---
 
-```php
-$laravelGrandstream = new AkramGhaleb\LaravelGrandstream();
-echo $laravelGrandstream->echoPhrase('Hello, AkramGhaleb!');
-```
+## 🚀 Usage
 
-## Testing
+Use the **Facade** for simple calls:
 
-```bash
+$$$php
+use AkramGhaleb\LaravelGrandstream\Facades\Grandstream;
+
+// Example: List extensions
+$response = Grandstream::api('listExtension');
+
+// Example: Fetch call records (CDR)
+$cdr = Grandstream::api('listCDR', ['page' => 1, 'page_size' => 20]);
+
+// Example: Force new login and retrieve cookie
+$cookie = Grandstream::loginFor(auth()->id());
+$$$
+
+The package automatically retries failed requests when cookies expire (`-6`, `-8`, `-37`).
+
+---
+
+## 🧩 Example Response
+
+$$$json
+{
+"status": 0,
+"response": {
+"total": 125,
+"cdr": [
+{
+"call_time": "2025-10-18 09:14:23",
+"src": "1001",
+"dst": "1002",
+"duration": "00:00:12",
+"disposition": "ANSWERED"
+}
+]
+}
+}
+$$$
+
+---
+
+## 🧱 Advanced Usage
+
+Inject it directly instead of using the Facade:
+
+$$$php
+use AkramGhaleb\LaravelGrandstream\Grandstream;
+
+class CallController
+{
+public function __construct(protected Grandstream $grandstream) {}
+
+    public function index()
+    {
+        $calls = $this->grandstream->api('listActiveCalls');
+        return response()->json($calls);
+    }
+}
+$$$
+
+---
+
+## 🧪 Testing
+
+$$$
 composer test
-```
+$$$
 
-## Changelog
+---
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+## 📝 Changelog
 
-## Contributing
+See [CHANGELOG](CHANGELOG.md) for details.
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+---
 
-## Security Vulnerabilities
+## 🤝 Contributing
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+Contributions are welcome!  
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a PR.
 
-## Credits
+---
+
+## 🛡️ Security
+
+For security vulnerabilities, please review [our security policy](../../security/policy).
+
+---
+
+## 👨‍💻 Credits
 
 - [Akram Ghaleb](https://github.com/akramghaleb)
 - [All Contributors](../../contributors)
 
-## License
+---
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+## 📄 License
+
+This project is open-source software licensed under the **MIT License**.  
+See [LICENSE](LICENSE.md) for more information.
+
+---
+
+## 🌍 Support
+
+If you find this package useful, please ⭐ it on [GitHub](https://github.com/akramghaleb/laravel-grandstream).  
+You can also support by sharing feedback, contributing, or improving documentation.
