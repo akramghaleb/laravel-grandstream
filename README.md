@@ -20,6 +20,20 @@ It simplifies REST API communication, including:
 Ideal for **real-time call monitoring**, **extension management**, or **PBX-based CRM dashboards**.
 
 ---
+## 📖 Official API Reference
+
+The complete Grandstream HTTPS API documentation is available here:  
+👉 [**Grandstream UCM6xxx HTTPS API Guide (PDF)**](https://www.grandstream.com/hubfs/Product_Documentation/UCM_API_Guide.pdf)
+
+It includes:
+- Authentication flow (**`challenge`** → **`login`**)
+- Voice & call control endpoints (**listBridgedChannels**, **Hangup**, **CallTransfer**, etc.)
+- CDR & Recording APIs (**cdrapi**, **recapi**)
+- Error codes and result structures
+
+> This Laravel package aligns with the same API structure and request schema described in that official document.
+
+---
 
 ## ⚙️ Installation
 
@@ -62,10 +76,13 @@ Use the **Facade** for simple calls:
 use AkramGhaleb\LaravelGrandstream\Facades\Grandstream;
 
 // Example: List extensions
-$response = Grandstream::getData('listExtension');
+$response = Grandstream::getData('listAccount', [
+            'options' => 'extension,account_type,fullname,status,addr',
+            'page' => 1, 'sidx' => 'extension', 'sord' => 'asc',
+        ]);
 
 // Example: Fetch call records (CDR)
-$cdr = Grandstream::getData('listCDR', ['page' => 1, 'page_size' => 20]);
+$cdr = Grandstream::getData('cdrapi', ["format":"json"]);
 ```
 
 The package automatically retries failed requests when cookies expire (`-6`, `-8`, `-37`).
@@ -103,11 +120,9 @@ use AkramGhaleb\LaravelGrandstream\Grandstream;
 
 class CallController
 {
-public function __construct(protected Grandstream $grandstream) {}
-
     public function index()
     {
-        $calls = $this->grandstream->getData('listActiveCalls');
+        $calls = Grandstream::getData('listUnBridgedChannels');
         return response()->json($calls);
     }
 }
