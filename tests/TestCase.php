@@ -2,9 +2,9 @@
 
 namespace AkramGhaleb\LaravelGrandstream\Tests;
 
+use AkramGhaleb\LaravelGrandstream\LaravelGrandstreamServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use AkramGhaleb\LaravelGrandstream\LaravelGrandstreamServiceProvider;
 
 class TestCase extends Orchestra
 {
