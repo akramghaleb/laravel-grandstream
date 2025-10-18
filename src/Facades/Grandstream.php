@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \AkramGhaleb\LaravelGrandstream\LaravelGrandstream
  */
-class LaravelGrandstream extends Facade
+class Grandstream extends Facade
 {
     protected static function getFacadeAccessor(): string
     {

@@ -66,7 +66,7 @@
                 "AkramGhaleb\\LaravelGrandstream\\LaravelGrandstreamServiceProvider"
             ],
             "aliases": {
-                "LaravelGrandstream": "AkramGhaleb\\LaravelGrandstream\\Facades\\LaravelGrandstream"
+                "LaravelGrandstream": "Grandstream"
             }
         }
     },

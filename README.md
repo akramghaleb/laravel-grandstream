@@ -48,8 +48,8 @@ UCM_API_USER=apiuser
 UCM_API_PASS=apipassword
 UCM_API_VER=1.2
 UCM_COOKIE_TTL=9
-UCM_VERIFY_SSL=false
-UCM_CACHE_PREFIX=ucm_cookie:
+GRANDSTREAM_WEBHOOK_USER=admin
+GRANDSTREAM_WEBHOOK_PASS=password
 ```
 
 ---
@@ -62,13 +62,10 @@ Use the **Facade** for simple calls:
 use AkramGhaleb\LaravelGrandstream\Facades\Grandstream;
 
 // Example: List extensions
-$response = Grandstream::api('listExtension');
+$response = Grandstream::getData('listExtension');
 
 // Example: Fetch call records (CDR)
-$cdr = Grandstream::api('listCDR', ['page' => 1, 'page_size' => 20]);
-
-// Example: Force new login and retrieve cookie
-$cookie = Grandstream::loginFor(auth()->id());
+$cdr = Grandstream::getData('listCDR', ['page' => 1, 'page_size' => 20]);
 ```
 
 The package automatically retries failed requests when cookies expire (`-6`, `-8`, `-37`).
@@ -79,19 +76,19 @@ The package automatically retries failed requests when cookies expire (`-6`, `-8
 
 ```json
 {
-"status": 0,
-"response": {
-"total": 125,
-"cdr": [
-{
-"call_time": "2025-10-18 09:14:23",
-"src": "1001",
-"dst": "1002",
-"duration": "00:00:12",
-"disposition": "ANSWERED"
-}
-]
-}
+    "status": 0,
+    "response": {
+        "total": 125,
+        "cdr": [
+            {
+            "call_time": "2025-10-18 09:14:23",
+            "src": "1001",
+            "dst": "1002",
+            "duration": "00:00:12",
+            "disposition": "ANSWERED"
+            }
+        ]
+    }
 }
 ```
 
@@ -110,7 +107,7 @@ public function __construct(protected Grandstream $grandstream) {}
 
     public function index()
     {
-        $calls = $this->grandstream->api('listActiveCalls');
+        $calls = $this->grandstream->getData('listActiveCalls');
         return response()->json($calls);
     }
 }
