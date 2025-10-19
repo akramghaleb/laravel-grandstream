@@ -9,11 +9,18 @@ trait Extension
      * such as the extension’s number, its name etc.
      * Note: The needed information, can be defined in the parameter “options”.
      */
-    public static function listAccount():array
+    public static function listAccount(
+        string $options = 'extension,account_type,fullname,status,addr',
+        string $sidx = 'extension',
+        string $sord = 'asc',
+        int    $page = 1,
+    ):array
     {
         return self::getData('listAccount', [
-            'options' => 'extension,account_type,fullname,status,addr',
-            'page' => 1, 'sidx' => 'extension', 'sord' => 'asc',
+            'options' => $options,
+            'page' => $page,
+            'sidx' => $sidx,
+            'sord' => $sord
         ]);
     }
 
@@ -30,11 +37,14 @@ trait Extension
     /*
      * This action will allow users to update an existing SIP account
      */
-    public static function updateSIPAccount(string $extension):array
+    public static function updateSIPAccount(
+        string $extension,
+        string $permission = 'internal',
+    ):array
     {
         return self::getData('updateSIPAccount',[
             'extension' => $extension,
-            'permission'=> 'internal'
+            'permission'=> $permission
         ]);
     }
 }

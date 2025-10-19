@@ -74,10 +74,7 @@ Use the **Facade** for simple calls:
 use AkramGhaleb\LaravelGrandstream\Facades\Grandstream;
 
 // Example: List extensions
-$response = Grandstream::getData('listAccount', [
-            'options' => 'extension,account_type,fullname,status,addr',
-            'page' => 1, 'sidx' => 'extension', 'sord' => 'asc',
-        ]);
+$response = Grandstream::listAccount();
 
 // Example: Fetch call records (CDR)
 $cdr = Grandstream::getData('cdrapi', ["format":"json"]);
@@ -120,8 +117,8 @@ class CallController
 {
     public function index()
     {
-        $calls = Grandstream::getData('listUnBridgedChannels');
-        return response()->json($calls);
+        $calls = Grandstream::listUnBridgedChannels();
+        return $calls;
     }
 }
 ```
