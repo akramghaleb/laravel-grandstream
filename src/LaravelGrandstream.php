@@ -3,6 +3,8 @@
 namespace AkramGhaleb\LaravelGrandstream;
 
 use AkramGhaleb\LaravelGrandstream\Traits\Extension;
+use AkramGhaleb\LaravelGrandstream\Traits\IVR;
+use AkramGhaleb\LaravelGrandstream\Traits\PagingIntercom;
 use AkramGhaleb\LaravelGrandstream\Traits\SystemConfiguration;
 use AkramGhaleb\LaravelGrandstream\Traits\VoiceCall;
 
@@ -11,6 +13,8 @@ class LaravelGrandstream
     use SystemConfiguration;
     use Extension;
     use VoiceCall;
+    use IVR;
+    use PagingIntercom;
 
     public static function getData(string $action, array $payload = []): array
     {
