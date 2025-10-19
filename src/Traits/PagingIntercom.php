@@ -87,4 +87,25 @@ trait PagingIntercom
             'paginggroup' => $paginggroup,
         ]);
     }
+
+    /*
+     * The “MulticastPaging” action allows users to initiate a multicast paging call.
+     */
+    public static function multicastPaging(string $caller,string $pagingnum):array
+    {
+        return self::getData('MulticastPaging', [
+            'caller' => $caller,
+            'pagingnum' => $pagingnum,
+        ]);
+    }
+
+    /*
+     * The “MulticastPagingHangup” action allows users to hangup an ongoing multicast paging call.
+     */
+    public static function multicastPagingHangup(string $pagingnum):array
+    {
+        return self::getData('MulticastPagingHangup', [
+            'pagingnum' => $pagingnum,
+        ]);
+    }
 }
