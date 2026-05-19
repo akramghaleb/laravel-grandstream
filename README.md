@@ -18,6 +18,20 @@ It simplifies REST API communication, including:
 Ideal for **real-time call monitoring**, **extension management**, or **PBX-based CRM dashboards**.
 
 ---
+
+## ⚡ Compatibility
+
+This package is designed to support a wide range of PHP and Laravel versions:
+
+| Laravel Version | PHP Version |
+| :--- | :--- |
+| **Laravel 10.x** | `^8.3` |
+| **Laravel 11.x** | `^8.3` |
+| **Laravel 12.x** | `^8.3` |
+| **Laravel 13.x** | `^8.3` |
+
+---
+
 ## 📖 Official API Reference
 
 The complete Grandstream HTTPS API documentation is available here:  
@@ -77,7 +91,7 @@ use AkramGhaleb\LaravelGrandstream\Facades\Grandstream;
 $response = Grandstream::listAccount();
 
 // Example: Fetch call records (CDR)
-$cdr = Grandstream::getData('cdrapi', ["format":"json"]);
+$cdr = Grandstream::getData('cdrapi', ['format' => 'json']);
 ```
 
 The package automatically retries failed requests when cookies expire (`-6`, `-8`, `-37`).
