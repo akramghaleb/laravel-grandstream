@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 11
+			path: config/grandstream.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between array\{paginggroup\: string, members\?\: string, paginggroup_type\?\: string\} and array\{\} will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: src/LaravelGrandstream.php
