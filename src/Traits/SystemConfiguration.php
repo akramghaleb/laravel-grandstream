@@ -15,7 +15,7 @@ trait SystemConfiguration
     /*
      * The “getSystemGeneralStatus” action will return the version information
      */
-    public static function getSystemGeneralStatus():array
+    public static function getSystemGeneralStatus(): array
     {
         return self::getData('getSystemGeneralStatus');
     }

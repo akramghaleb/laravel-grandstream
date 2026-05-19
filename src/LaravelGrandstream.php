@@ -10,11 +10,11 @@ use AkramGhaleb\LaravelGrandstream\Traits\VoiceCall;
 
 class LaravelGrandstream
 {
-    use SystemConfiguration;
     use Extension;
-    use VoiceCall;
     use IVR;
     use PagingIntercom;
+    use SystemConfiguration;
+    use VoiceCall;
 
     public static function getData(string $action, array $payload = []): array
     {

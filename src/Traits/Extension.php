@@ -13,23 +13,22 @@ trait Extension
         string $options = 'extension,account_type,fullname,status,addr',
         string $sidx = 'extension',
         string $sord = 'asc',
-        int    $page = 1,
-    ):array
-    {
+        int $page = 1,
+    ): array {
         return self::getData('listAccount', [
             'options' => $options,
             'page' => $page,
             'sidx' => $sidx,
-            'sord' => $sord
+            'sord' => $sord,
         ]);
     }
 
     /*
      * The “getSIPAccount” action will return information about specific extension
      */
-    public static function getSIPAccount(string $extension):array
+    public static function getSIPAccount(string $extension): array
     {
-        return self::getData('getSIPAccount',[
+        return self::getData('getSIPAccount', [
             'extension' => $extension,
         ]);
     }
@@ -40,11 +39,10 @@ trait Extension
     public static function updateSIPAccount(
         string $extension,
         string $permission = 'internal',
-    ):array
-    {
-        return self::getData('updateSIPAccount',[
+    ): array {
+        return self::getData('updateSIPAccount', [
             'extension' => $extension,
-            'permission'=> $permission
+            'permission' => $permission,
         ]);
     }
 }
